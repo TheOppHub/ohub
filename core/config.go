@@ -64,10 +64,12 @@ var (
 	ChainIdentitiesMain = map[string]bool{
 		"main":    true,
 		"mainnet": true,
+		"omain":   true,
 	}
 	ChainIdentitiesMorden = map[string]bool{
 		"morden":  true,
 		"testnet": true,
+		"otest":   true,
 	}
 
 	cacheChainIdentity string

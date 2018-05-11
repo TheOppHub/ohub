@@ -348,7 +348,7 @@ func MakeWSRpcHost(ctx *cli.Context) string {
 }
 
 // MakeDatabaseHandles raises out the number of allowed file handles per process
-// for Geth and returns half of the allowance to assign to the database.
+// for Ohub and returns half of the allowance to assign to the database.
 func MakeDatabaseHandles() int {
 	if err := raiseFdLimit(2048); err != nil {
 		glog.V(logger.Warn).Errorf("Failed to raise file descriptor allowance: ", err)
@@ -448,7 +448,7 @@ func MakePasswordList(ctx *cli.Context) []string {
 
 // makeName makes the node name, which can be (in part) customized by the NodeNameFlag
 func makeNodeName(version string, ctx *cli.Context) string {
-	name := fmt.Sprintf("Geth/%s/%s/%s", version, runtime.GOOS, runtime.Version())
+	name := fmt.Sprintf("Ohub/%s/%s/%s", version, runtime.GOOS, runtime.Version())
 	if identity := ctx.GlobalString(aliasableName(NodeNameFlag.Name, ctx)); len(identity) > 0 {
 		name += "/" + identity
 	}
@@ -503,7 +503,7 @@ func MakeSystemNode(version string, ctx *cli.Context) *node.Node {
 	}
 
 	if ctx.GlobalBool(Unused1.Name) {
-		glog.V(logger.Warn).Warnln(fmt.Sprintf("Geth started with --%s flag, which is unused by Geth Classic and can be omitted", Unused1.Name))
+		glog.V(logger.Warn).Warnln(fmt.Sprintf("Ohub started with --%s flag, which is unused by Ohub and can be omitted", Unused1.Name))
 	}
 
 	return stack
@@ -676,7 +676,7 @@ func mustMakeSufficientChainConfig(ctx *cli.Context) *core.SufficientChainConfig
 		config.ChainConfig = MustMakeChainConfigFromDefaults(ctx).SortForks()
 		config.ParsedBootstrap = MakeBootstrapNodesFromContext(ctx)
 		if chainIsMorden(ctx) {
-			config.Network = 2
+			config.Network = 1112
 			config.Genesis = core.DefaultConfigMorden.Genesis
 			state.StartingNonce = state.DefaultTestnetStartingNonce // (2**20)
 		}
@@ -691,7 +691,7 @@ func mustMakeSufficientChainConfig(ctx *cli.Context) *core.SufficientChainConfig
 		It looks like you haven't set up your custom chain yet...
 		Here's a possible workflow for that:
 
-		$ geth --chain morden dump-chain-config %v/chain.json
+		$ ohub --chain morden dump-chain-config %v/chain.json
 		$ sed -i.bak s/morden/%v/ %v/chain.json
 		$ vi %v/chain.json # <- make your customizations
 		`, core.ErrChainConfigNotFound, defaultChainConfigPath,
@@ -731,10 +731,10 @@ func logChainConfiguration(ctx *cli.Context, config *core.SufficientChainConfig)
 
 	glog.V(logger.Info).Info(glog.Separator("-"))
 
-	glog.V(logger.Info).Infof("Starting Geth Classic %s", ctx.App.Version)
-	glog.D(logger.Warn).Infof("Geth Classic version: %s", logger.ColorGreen(ctx.App.Version))
+	glog.V(logger.Info).Infof("Starting Ohub %s", ctx.App.Version)
+	glog.D(logger.Warn).Infof("Ohub version: %s", logger.ColorGreen(ctx.App.Version))
 
-	glog.V(logger.Info).Infof("Geth is configured to use ETC blockchain: %v", config.Name)
+	glog.V(logger.Info).Infof("Ohub is configured to use ETC blockchain: %v", config.Name)
 	glog.D(logger.Warn).Infof("Blockchain: %s", logger.ColorGreen(config.Name))
 
 	chaindataDirName := MustMakeChainDataDir(ctx) + "/chaindata"

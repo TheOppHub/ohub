@@ -22,7 +22,7 @@ import (
 )
 
 const (
-	DefaultIPCSocket = "geth.ipc"  // Default (relative) name of the IPC RPC socket
+	DefaultIPCSocket = "ohub.ipc"  // Default (relative) name of the IPC RPC socket
 	DefaultHTTPHost  = "localhost" // Default host interface for the HTTP RPC server
 	DefaultHTTPPort  = 8545        // Default TCP port for the HTTP RPC server
 	DefaultWSHost    = "localhost" // Default host interface for the websocket RPC server
@@ -47,21 +47,21 @@ func defaultDataDirParent() string {
 
 func defaultClassicDataDir() string {
 	if runtime.GOOS == "darwin" {
-		return "EthereumClassic"
+		return "TheOppHub"
 	} else if runtime.GOOS == "windows" {
-		return "EthereumClassic"
+		return "TheOppHub"
 	} else {
-		return ".ethereum-classic"
+		return ".ohub"
 	}
 }
 
 func defaultUnclassicDataDir() string {
 	if runtime.GOOS == "darwin" {
-		return "Ethereum"
+		return "OppHubLegacy"
 	} else if runtime.GOOS == "windows" {
-		return "Ethereum"
+		return "OppHubLegacy"
 	} else {
-		return ".ethereum"
+		return ".ohub-legacy"
 	}
 }
 
